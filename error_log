@@ -1,0 +1,9 @@
+[13-Dec-2017 15:54:26 America/Chicago] PHP Fatal error:  Call to a member function first_child() on a non-object in /home4/prid/public_html/PHP/Twister/update_twists.php on line 10
+[13-Dec-2017 15:54:29 America/Chicago] PHP Fatal error:  Call to a member function first_child() on a non-object in /home4/prid/public_html/PHP/Twister/update_twists.php on line 10
+[13-Dec-2017 15:56:14 America/Chicago] PHP Fatal error:  Call to a member function first_child() on a non-object in /home4/prid/public_html/PHP/Twister/update_twists.php on line 11
+[13-Dec-2017 16:14:55 America/Chicago] PHP Fatal error:  Call to undefined method simple_html_dom_node::plaintext() in /home4/prid/public_html/PHP/Twister/update_twists.php on line 14
+[13-Dec-2017 16:14:57 America/Chicago] PHP Fatal error:  Call to undefined method simple_html_dom_node::plaintext() in /home4/prid/public_html/PHP/Twister/update_twists.php on line 14
+[13-Dec-2017 16:14:59 America/Chicago] PHP Fatal error:  Call to undefined method simple_html_dom_node::plaintext() in /home4/prid/public_html/PHP/Twister/update_twists.php on line 14
+[13-Dec-2017 16:20:55 America/Chicago] PHP Parse error:  syntax error, unexpected end of file, expecting variable (T_VARIABLE) or ${ (T_DOLLAR_OPEN_CURLY_BRACES) or {$ (T_CURLY_OPEN) in /home4/prid/public_html/PHP/Twister/update_twists.php on line 24
+[23-Dec-2017 19:15:02 America/Chicago] PHP Warning:  filesize(): stat failed for twists/Hiroyuki_Sawano.txt in /home4/prid/public_html/PHP/Twister/update_twists.php on line 15
+[23-Dec-2017 19:15:02 America/Chicago] PHP Warning:  fread(): Length parameter must be greater than 0 in /home4/prid/public_html/PHP/Twister/update_twists.php on line 15
