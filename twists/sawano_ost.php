@@ -15,6 +15,7 @@ $works_saved = explode("\r\n", $content);
 
 $works = [];
 
+// this should be self-defined upon creating object of class
 foreach ($html->find('.wikitable') as $tables) {
 	$tableData = $tables->find("tbody tr");
 	
@@ -25,6 +26,8 @@ foreach ($html->find('.wikitable') as $tables) {
 	}
 }
 
+
+// this should be automated
 if(count(array_diff($works_saved, $works)) > 0){
 	$text = "";
 	

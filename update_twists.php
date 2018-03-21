@@ -2,7 +2,7 @@
 
 header('Content-Type: text/html; charset=utf-8');
 
-require("simple_html_dom.php");
+require("vendor/simple_html_dom.php");
 
 $url = "https://en.wikipedia.org/wiki/Hiroyuki_Sawano";
 
