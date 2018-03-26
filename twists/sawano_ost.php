@@ -2,6 +2,30 @@
 
 $url = "https://en.wikipedia.org/wiki/Hiroyuki_Sawano";
 
+$twist = new Handler($url);
+
+$twist->setInitFunction(function($s){
+	echo $s;
+});
+
+$twist->start();
+
+/*$twist->setInitFunction(function(){
+	
+});
+
+$twist->setHandler(function(){
+	foreach ($html->find('.wikitable') as $tables) {
+		$tableData = $tables->find("tbody tr");
+		
+		if(strpos(strtolower($tableData[0]), 'anime') !== false){
+			for($i = 1; $i < count($tableData); $i++){
+				$works[] = $tableData[$i]->first_child()->plaintext;
+			}
+		}
+	}
+});
+
 $min_name = urlencode(basename($url));
 $html = file_get_html($url);
 
@@ -14,17 +38,6 @@ fclose($fp);
 $works_saved = explode("\r\n", $content);
 
 $works = [];
-
-// this should be self-defined upon creating object of class
-foreach ($html->find('.wikitable') as $tables) {
-	$tableData = $tables->find("tbody tr");
-	
-	if(strpos(strtolower($tableData[0]), 'anime') !== false){
-		for($i = 1; $i < count($tableData); $i++){
-			$works[] = $tableData[$i]->first_child()->plaintext;
-		}
-	}
-}
 
 
 // this should be automated
@@ -39,6 +52,6 @@ if(count(array_diff($works_saved, $works)) > 0){
 	$fp = fopen('db/' . $min_name . '.txt', 'w');
 	fwrite($fp, $text);
 	fclose($fp);
-}
+}*/
 
 ?>
