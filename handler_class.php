@@ -11,8 +11,7 @@ class Handler {
 	}
 	
 	public function start(){
-		//$this->initFunc("HELLO WORLD");
-		//var_dump($this->initFunc());
+		call_user_func($this->initFunc, "HELLO WORLD");
 	}
 	
 	public function setInitFunction($anonFunc){
