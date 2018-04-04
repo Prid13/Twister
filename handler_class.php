@@ -7,6 +7,7 @@ class Handler {
 	public $url;
 	public $initFunc;
 	public $handlerFunc;
+	public $testFunc;
 	private $min_name;
 	private $items;
 	private $items_saved;
@@ -40,12 +41,39 @@ class Handler {
 		$this->saveDifferences();
 	}
 	
+	public function test(){	
+		$html = file_get_html($this->url);
+		
+		$this->items = array();
+		$this->firstRead = !$this->readFileContents();
+		
+		if($this->firstRead){
+			if(isset($this->initFunc)){
+				$initFunc = $this->initfunc;
+				$initFunc($html, $this->items);
+			} else {
+				$handlerFunc = $this->handlerFunc;
+				$handlerFunc($html, $this->items);
+			}
+		} else {
+			$handlerFunc = $this->handlerFunc;
+			$handlerFunc($html, $this->items);
+		}
+		
+		$testFunc = $this->testFunc;
+		$testFunc($this->items);
+	}
+	
 	public function setInitFunction($anonFunc){
 		$this->initFunc = $anonFunc;
 	}
 	
 	public function setHandler($anonFunc){
 		$this->handlerFunc = $anonFunc;
+	}
+	
+	public function setTestFunction($anonFunc){
+		$this->testFunc = $anonFunc;
 	}
 	
 	private function readFileContents(){
