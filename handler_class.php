@@ -20,29 +20,28 @@ class Handler {
 	}
 	
 	public function start(){		
-		$html = file_get_html($this->url);
+		$setupLoad = $this->startSetup();
 		
-		$this->items = array();
-		$this->firstRead = !$this->readFileContents();
-		
-		if($this->firstRead){
-			if(isset($this->initFunc)){
-				$initFunc = $this->initfunc;
-				$initFunc($html, $this->items);
-			} else {
-				$handlerFunc = $this->handlerFunc;
-				$handlerFunc($html, $this->items);
-			}
-		} else {
-			$handlerFunc = $this->handlerFunc;
-			$handlerFunc($html, $this->items);
-		}
-		
-		$this->saveDifferences();
+		if($setupLoad)
+			$this->saveDifferences();
 	}
 	
 	public function test(){	
-		$html = file_get_html($this->url);
+		$setupLoad = $this->startSetup();
+		
+		if($setupLoad){
+			$testFunc = $this->testFunc;
+			$testFunc($this->items);
+		}
+	}
+	
+	private function startSetup(){
+		$html = @file_get_html($this->url);
+		
+		if($html === FALSE){
+			$this->errorHandler("Failed to load website: $this->url");
+			return false;
+		}
 		
 		$this->items = array();
 		$this->firstRead = !$this->readFileContents();
@@ -60,8 +59,7 @@ class Handler {
 			$handlerFunc($html, $this->items);
 		}
 		
-		$testFunc = $this->testFunc;
-		$testFunc($this->items);
+		return true;
 	}
 	
 	public function setInitFunction($anonFunc){
@@ -93,7 +91,9 @@ class Handler {
 	}
 	
 	private function saveDifferences(){
-		if($this->firstRead || count(array_diff($this->items_saved, $this->items)) > 0){
+		$diffTxt = array_diff($this->items_saved, $this->items);
+		
+		if($this->firstRead || count($diffTxt) > 0){
 			$text = "";
 			
 			for($i = 0; $i < count($this->items)-1; $i++)
@@ -101,12 +101,16 @@ class Handler {
 			
 			$text .= $this->items[count($this->items)-1];
 			
-			$this->diffTxt = $text;
+			$this->diffTxt = $diffTxt;
 			
 			$fp = fopen('db/' . $this->min_name . '.txt', 'w');
 			fwrite($fp, $text);
 			fclose($fp);
 		}
+	}
+	
+	public function errorHandler($msg){
+		echo "<p><b>ERROR:</b> " . $msg . "</p>";
 	}
 	
 }

@@ -1,6 +1,11 @@
 <?php
 
 include("handler_class.php");
+include("vendor/pushbullet.php");
+
+// Pushbullet
+$token = "o.xrTVjS4nwDFgLc8qcpFLMq2WFWdpVbKX";
+$target = "ujyhZW3We84sjz99WkCibI";
 
 $path = './twists/';
 $files = array_diff(scandir($path), array('.', '..'));
