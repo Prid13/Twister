@@ -6,7 +6,7 @@ $twist = new Handler($url);
 
 $twist->setHandler(function($html, &$items){
 	foreach ($html->find('.wikitable') as $tables) {
-		$tableData = $tables->find("tbody tr");
+		$tableData = $tables->find("tr");
 		
 		if(strpos(strtolower($tableData[0]), 'anime') !== false){
 			for($i = 1; $i < count($tableData); $i++){
@@ -14,6 +14,8 @@ $twist->setHandler(function($html, &$items){
 			}
 		}
 	}
+	
+	var_dump($items);
 });
 
 $twist->start();

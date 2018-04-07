@@ -2,6 +2,7 @@
 
 include("handler_class.php");
 include("vendor/pushbullet.php");
+include("functions/array.functions.php");
 
 // Pushbullet
 $token = "o.xrTVjS4nwDFgLc8qcpFLMq2WFWdpVbKX";
@@ -16,7 +17,5 @@ foreach($files as $i => $file){
 		include($path . $file);
 	}
 }
-
-
 
 ?>

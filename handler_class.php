@@ -1,6 +1,6 @@
 <?php
 
-include("vendor/simple_html_dom.php");
+include("vendor/advanced_html_dom.php");
 
 class Handler {
 
@@ -13,17 +13,25 @@ class Handler {
 	private $items_saved;
 	private $firstRead;
 	public $diffTxt;
+	public $hasRun;
 
 	public function __construct($url){
 		$this->url = $url;
 		$this->min_name = urlencode(basename($url));
+		$this->hasRun = false;
 	}
 	
 	public function start(){		
 		$setupLoad = $this->startSetup();
 		
-		if($setupLoad)
+		if($setupLoad){
 			$this->saveDifferences();
+			$this->hasRun = true;
+			
+			if(isset($this->pushMessageArray)){
+				$this->sendPushMessageInternal();
+			}
+		}
 	}
 	
 	public function test(){	
@@ -85,13 +93,15 @@ class Handler {
 			fclose($fp);
 
 			$this->items_saved = explode("\r\n", $content);
+			
+			return true;
 		} else {
 			return false;
 		}
 	}
 	
 	private function saveDifferences(){
-		$diffTxt = array_diff($this->items_saved, $this->items);
+		$diffTxt = array_diff_once($this->items, $this->items_saved);
 		
 		if($this->firstRead || count($diffTxt) > 0){
 			$text = "";
@@ -106,6 +116,22 @@ class Handler {
 			$fp = fopen('db/' . $this->min_name . '.txt', 'w');
 			fwrite($fp, $text);
 			fclose($fp);
+		}
+	}
+	
+	public function setPushMessage($token, $target, $title){
+		$this->pushMessageArray = array("token" => $token, "target" => $target, "title" => $title);
+		
+		if($this->hasRun)
+			$this->sendPushMessageInternal();
+	}
+	
+	private function sendPushMessageInternal(){
+		$twists = count($this->diffTxt);
+
+		if($twists > 0){
+			$pb = new Pushbullet($this->pushMessageArray["token"]);
+			$pb->pushNote($this->pushMessageArray["target"], $this->pushMessageArray["title"] . " ($twists)", implode("\r\n", $this->diffTxt));
 		}
 	}
 	
