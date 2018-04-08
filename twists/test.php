@@ -19,6 +19,20 @@ $twist->setTestFunction(function($items){
 
 $twist->start();
 
-$twist->setPushMessage($token, $target, "New List Item");
+var_dump($twist->diffTxt);
+
+//$twist->setPushMessage($token, $target, "New List Item");
+
+/*curl_setopt_array($ch = curl_init(), array(
+  CURLOPT_URL => "https://qpush.me/pusher/push_site/",
+  CURLOPT_POSTFIELDS => array(
+    "name" => "prid_iphone2",
+    "code" => "351566",
+    "msg[text]" => "hello world",
+  ),
+  CURLOPT_RETURNTRANSFER => true,
+));
+curl_exec($ch);
+curl_close($ch);*/
 
 ?>

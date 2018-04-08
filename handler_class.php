@@ -15,9 +15,9 @@ class Handler {
 	public $diffTxt;
 	public $hasRun;
 
-	public function __construct($url){
+	public function __construct($url, $min_name = null){
 		$this->url = $url;
-		$this->min_name = urlencode(basename($url));
+		$this->min_name = is_null($min_name) ? urlencode(basename($url)) : $min_name;
 		$this->hasRun = false;
 	}
 	
@@ -106,14 +106,24 @@ class Handler {
 		if($this->firstRead || count($diffTxt) > 0){
 			$text = "";
 			
-			for($i = 0; $i < count($this->items)-1; $i++)
-				$text .= $this->items[$i] . "\r\n";
-			
-			$text .= $this->items[count($this->items)-1];
+			if(count($this->items_saved) > 0){
+				for($i = 0; $i < count($diffTxt); $i++)
+					$text .= $diffTxt[$i] . "\r\n";
+			} else {
+				for($i = 0; $i < count($diffTxt)-1; $i++)
+					$text .= $diffTxt[$i] . "\r\n";
+				
+				$text .= $diffTxt[count($diffTxt)-1];
+			}
 			
 			$this->diffTxt = $diffTxt;
 			
-			$fp = fopen('db/' . $this->min_name . '.txt', 'w');
+			$filepath = 'db/' . $this->min_name . '.txt';
+			
+			if(!$this->firstRead)
+				$text = $text . file_get_contents($filepath);
+			
+			$fp = fopen($filepath, 'w');
 			fwrite($fp, $text);
 			fclose($fp);
 		}

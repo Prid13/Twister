@@ -14,8 +14,6 @@ $twist->setHandler(function($html, &$items){
 			}
 		}
 	}
-	
-	var_dump($items);
 });
 
 $twist->start();
@@ -23,6 +21,6 @@ $twist->start();
 //$pb = new Pushbullet($token);
 //$pb->pushNote($target, "New Hiroyuki Sawano OST!", "Attack on Titan Season 4");
 
-var_dump($twist->diffTxt);
+//var_dump($twist->diffTxt);
 
 ?>
