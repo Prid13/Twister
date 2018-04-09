@@ -19,7 +19,9 @@ $twist->setTestFunction(function($items){
 
 $twist->start();
 
-var_dump($twist->diffTxt);
+$twist->setQPushMessage($pushName, $pushCode, "New List Item");
+
+//var_dump($twist->diffTxt);
 
 //$twist->setPushMessage($token, $target, "New List Item");
 

@@ -107,13 +107,18 @@ class Handler {
 			$text = "";
 			
 			if(count($this->items_saved) > 0){
-				for($i = 0; $i < count($diffTxt); $i++)
-					$text .= $diffTxt[$i] . "\r\n";
+				foreach($diffTxt as $item){
+					$text .= $item . "\r\n";
+				}
 			} else {
-				for($i = 0; $i < count($diffTxt)-1; $i++)
-					$text .= $diffTxt[$i] . "\r\n";
-				
-				$text .= $diffTxt[count($diffTxt)-1];
+				$i = 0;
+				$count = count($diffTxt)-1;
+				foreach($diffTxt as $item){
+					if($i++ < $count)
+						$text .= $item . "\r\n";
+					else
+						$text .= $item;
+				}
 			}
 			
 			$this->diffTxt = $diffTxt;
@@ -142,6 +147,25 @@ class Handler {
 		if($twists > 0){
 			$pb = new Pushbullet($this->pushMessageArray["token"]);
 			$pb->pushNote($this->pushMessageArray["target"], $this->pushMessageArray["title"] . " ($twists)", implode("\r\n", $this->diffTxt));
+		}
+	}
+	
+	public function setQPushMessage($name, $code, $title){
+		$twists = count($this->diffTxt);
+		
+		if($twists > 0){
+			curl_setopt_array($ch = curl_init(), array(
+			  CURLOPT_URL => "https://qpush.me/pusher/push_site/",
+			  CURLOPT_POSTFIELDS => array(
+				"name" => $name,
+				"code" => $code,
+				"cache" => "false",
+				"msg[text]" => $title . " ($twists)\r\n\r\n" . implode("\r\n", $this->diffTxt)
+			  ),
+			  CURLOPT_RETURNTRANSFER => true,
+			));
+			curl_exec($ch);
+			curl_close($ch);
 		}
 	}
 	

@@ -19,6 +19,7 @@ $twist->setTestFunction(function($items){
 $twist->start();
 
 $twist->setPushMessage($token, $target, "New BluRay Rip");
+$twist->setQPushMessage($pushName, $pushCode, "New BluRay Rip");
 
 //var_dump($twist->diffTxt);
 
