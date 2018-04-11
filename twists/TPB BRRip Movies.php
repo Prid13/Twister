@@ -20,6 +20,7 @@ $twist->start();
 
 $twist->setPushMessage($token, $target, "New BluRay Rip");
 $twist->setQPushMessage($pushName, $pushCode, "New BluRay Rip");
+$twist->setGroupMeMessage($access_token, "7961fc01726f5de9c3fc55498b", "New BluRay Rip");
 
 //var_dump($twist->diffTxt);
 

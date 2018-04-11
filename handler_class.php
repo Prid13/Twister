@@ -169,6 +169,20 @@ class Handler {
 		}
 	}
 	
+	public function setGroupMeMessage($access_token, $bot_id, $title){
+		$twists = count($this->diffTxt);
+		
+		if($twists > 0){
+			require('groupme.php');
+
+			$gm = new GroupMePHP\groupme($access_token);
+			$gm->bots->post(array(
+				"bot_id" => $bot_id,
+				"text" => $title . " ($twists)\r\n\r\n" . implode("\r\n", $this->diffTxt)
+			));
+		}
+	}
+	
 	public function errorHandler($msg){
 		echo "<p><b>ERROR:</b> " . $msg . "</p>";
 	}

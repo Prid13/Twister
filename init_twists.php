@@ -14,6 +14,9 @@ $target = "ujyhZW3We84sjz99WkCibI";
 $pushName = "prid_iphone2";
 $pushCode = "351566";
 
+// GroupMe
+$access_token = "0yeXei20AnoeRsmvSIL16tQeAwkhmtIbPoRO2mtg";
+
 $path = './twists/';
 $files = array_diff(scandir($path), array('.', '..'));
 
