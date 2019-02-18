@@ -23,6 +23,7 @@ class groupme {
 	public $bots;
 	public $sms;
 	public $leaderboard;
+	public $ssh;
 	
 	public function __construct($token = "") {
 		if(isset($token)) {
